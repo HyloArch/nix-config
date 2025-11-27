@@ -1,0 +1,12 @@
+{ getModule, ... }:
+{
+  system = "aarch64-darwin";
+  modules = [
+    # (getModule /test.nix)
+  ];
+  # specialArgs = {};
+  users.amatthias = {
+    homeDirectory = "/Users/amatthias";
+    homeModules = [ ];
+  };
+}
