@@ -7,6 +7,8 @@
   # specialArgs = {};
   users.amatthias = {
     homeDirectory = "/Users/amatthias";
-    homeModules = [ ];
+    homeModules = [
+      (getModule /home-manager/packwiz.nix)
+    ];
   };
 }
