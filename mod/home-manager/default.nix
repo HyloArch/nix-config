@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     nix-tree
+    nixd
   ];
 
   home.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";

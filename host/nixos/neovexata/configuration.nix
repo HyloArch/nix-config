@@ -8,11 +8,5 @@
     rtl88xxau-aircrack
   ];
 
-  environment.systemPackages = with pkgs; [
-    vscode
-  ];
-
-  programs.firefox.enable = true;
-
   system.stateVersion = "25.05";
 }
