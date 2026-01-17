@@ -24,6 +24,7 @@
           "nix-command"
           "flakes"
         ];
+        trusted-users = [ "hyloarch" ];
       };
       gc = {
         automatic = true;

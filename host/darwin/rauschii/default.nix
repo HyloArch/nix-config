@@ -10,6 +10,7 @@
     homeDirectory = "/Users/amatthias";
     homeModules = [
       (getModule /home-manager/packwiz.nix)
+      (getModule /home-manager/kitty.nix)
     ];
   };
 }

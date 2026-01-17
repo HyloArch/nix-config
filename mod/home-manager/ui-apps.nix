@@ -1,11 +1,16 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./kitty.nix
+  ];
+
   config = {
     home.packages = with pkgs; [
       kdePackages.dolphin
       zed-editor
       firefox
       prismlauncher
+
     ];
 
     xdg = {
