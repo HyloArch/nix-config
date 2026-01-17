@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { ... }@inputs:
@@ -66,6 +70,7 @@
                   backupFileExtension = "hm-bkup";
                 };
               }
+              inputs.nur.modules.nixos.default
             ]
             ++ (optionalPath (getModule /${type}.nix))
             ++ (optionalPath ./host/${type}/${host}/hardware-configuration.nix);
