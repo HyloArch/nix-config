@@ -24,10 +24,12 @@
         nixos = {
           system = inputs.nixpkgs.lib.nixosSystem;
           home-manager = inputs.home-manager.nixosModules.home-manager;
+          nur = inputs.nur.modules.nixos.default;
         };
         darwin = {
           system = inputs.darwin.lib.darwinSystem;
           home-manager = inputs.home-manager.darwinModules.home-manager;
+          nur = inputs.nur.modules.darwin.default;
         };
       };
       optional = inputs.nixpkgs.lib.optional;
@@ -70,7 +72,7 @@
                   backupFileExtension = "hm-bkup";
                 };
               }
-              inputs.nur.modules.nixos.default
+              systemTypes.${type}.nur
             ]
             ++ (optionalPath (getModule /${type}.nix))
             ++ (optionalPath ./host/${type}/${host}/hardware-configuration.nix);

@@ -11,7 +11,7 @@
     homeModules = [
       (getModule /home-manager/packwiz.nix)
       (getModule /home-manager/kitty.nix)
-      (getModule /home-manager/typst.nix)
+      (getModule /home-manager/documents.nix)
     ];
   };
 }
