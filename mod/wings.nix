@@ -2,8 +2,8 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
-      docker
       nur.repos.xddxdd.pterodactyl-wings
     ];
+    virtualisation.docker.enable = true;
   };
 }
