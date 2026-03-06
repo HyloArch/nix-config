@@ -8,6 +8,8 @@ in
   home.packages = with pkgs; [
     typst
     tex
+    coq
+    coqPackages.coq-lsp
     # typst-live
   ];
 }

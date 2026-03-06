@@ -12,6 +12,8 @@
       (getModule /home-manager/packwiz.nix)
       (getModule /home-manager/kitty.nix)
       (getModule /home-manager/documents.nix)
+      (getModule /home-manager/neovim.nix)
+      (getModule /home-manager/dev.nix)
     ];
   };
 }
