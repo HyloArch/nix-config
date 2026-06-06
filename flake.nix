@@ -2,13 +2,13 @@
   description = "User home-manager flake";
 
   inputs = {
-    nixpkgs.url = "github:hyloarch/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-25.11";
+      url = "github:lnl7/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur = {
@@ -17,7 +17,8 @@
     };
   };
 
-  outputs = { ... }@inputs:
+  outputs =
+    { ... }@inputs:
     let
       getModule = mod: ./mod + mod;
       systemTypes = {
@@ -35,51 +36,57 @@
       optional = inputs.nixpkgs.lib.optional;
       optionalPath = path: optional (builtins.pathExists path) path;
       mkHost =
-        type:
-        host: fileType:
+        type: host: fileType:
         if fileType == "directory" then
           let
             module = import ./host/${type}/${host};
-            config = if builtins.isFunction module then
-                module { inherit inputs getModule; }
-              else module;
-            mkUser =
-              user: userConfig:
-              {
-                imports = (userConfig.homeModules or [ ]) ++ [
-                  ({ lib, ... }: {
+            config = if builtins.isFunction module then module { inherit inputs getModule; } else module;
+            mkUser = user: userConfig: {
+              imports = (userConfig.homeModules or [ ]) ++ [
+                (
+                  { lib, ... }:
+                  {
                     home = {
                       username = user;
                       homeDirectory = lib.mkForce userConfig.homeDirectory;
                     };
-                  })
-                  ./host/${type}/${host}/home.nix
-                  ./mod/home-manager
-                ];
-              };
-          in systemTypes.${type}.system {
+                  }
+                )
+                ./host/${type}/${host}/home.nix
+                ./mod/home-manager
+              ];
+            };
+          in
+          systemTypes.${type}.system {
             system = config.system;
-            modules = (config.modules or [ ]) ++ [
-              ./mod
-              ./host/${type}/${host}/configuration.nix
-              systemTypes.${type}.home-manager
-              {
-                networking.hostName = host;
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  users = builtins.mapAttrs mkUser config.users;
-                  backupFileExtension = "hm-bkup";
-                };
-              }
-              systemTypes.${type}.nur
-            ]
-            ++ (optionalPath (getModule /${type}.nix))
-            ++ (optionalPath ./host/${type}/${host}/hardware-configuration.nix);
-            specialArgs = { inherit inputs; } // (config.specialArgs or { });
+            modules =
+              (config.modules or [ ])
+              ++ [
+                ./mod
+                ./host/${type}/${host}/configuration.nix
+                systemTypes.${type}.home-manager
+                {
+                  networking.hostName = host;
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    users = builtins.mapAttrs mkUser config.users;
+                    backupFileExtension = "hm-bkup";
+                  };
+                }
+                systemTypes.${type}.nur
+              ]
+              ++ (optionalPath (getModule /${type}.nix))
+              ++ (optionalPath ./host/${type}/${host}/hardware-configuration.nix);
+            specialArgs = {
+              inherit inputs;
+            }
+            // (config.specialArgs or { });
           }
-        else { };
-    in {
+        else
+          { };
+    in
+    {
       nixosConfigurations = builtins.mapAttrs (mkHost "nixos") (builtins.readDir ./host/nixos);
       darwinConfigurations = builtins.mapAttrs (mkHost "darwin") (builtins.readDir ./host/darwin);
     };

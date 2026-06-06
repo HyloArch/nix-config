@@ -16,6 +16,8 @@
       ripgrep.enable = true;
       neovim = {
         enable = true;
+        withRuby = false;
+        withPython3 = true;
         extraConfig = ''
           set expandtab
           set tabstop=2
@@ -24,7 +26,7 @@
           set winborder=rounded
           let g:mapleader=" "
         '';
-        extraLuaConfig = ''
+        initLua = ''
           vim.opt.number = true
           vim.opt.relativenumber = false
           vim.diagnostic.config({
@@ -37,6 +39,7 @@
         plugins = with pkgs.vimPlugins; [
           {
             plugin = catppuccin-nvim;
+            type = "lua";
             config = "colorscheme catppuccin";
           }
           {

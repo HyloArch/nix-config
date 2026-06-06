@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    pixieditor
+    # pixieditor # Doesn't work >:(
     obsidian
   ];
 }
