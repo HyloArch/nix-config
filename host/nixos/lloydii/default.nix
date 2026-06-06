@@ -8,7 +8,7 @@
   users.hyloarch = {
     homeDirectory = "/home/hyloarch";
     homeModules = [
-      (getModule /nvim.nix)
+      (getModule /home-manager/neovim.nix)
     ];
   };
 }
