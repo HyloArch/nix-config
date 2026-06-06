@@ -10,6 +10,7 @@
       java-language-server
       stylua
       nixd
+      gopls
     ];
     programs = {
       ripgrep.enable = true;
@@ -97,7 +98,7 @@
             type = "lua";
             config = ''
               local capabilities = require("cmp_nvim_lsp").default_capabilities()
-              local lsps = { "lua_ls", "nil_ls", "nixd", "rust_analyzer", "clangd", "ts_ls", "java_language_server" }
+              local lsps = { "lua_ls", "nil_ls", "nixd", "rust_analyzer", "clangd", "ts_ls", "java_language_server", "gopls" }
               for _, lsp in ipairs(lsps) do
                 vim.lsp.config(lsp, {
                   capabilities = capabilities
@@ -169,6 +170,15 @@
           #     require("trouble").setup({})
           #   '';
           # }
+          {
+            plugin = toggleterm-nvim;
+            type = "lua";
+            config = ''
+              require("toggleterm").setup({})
+
+              vim.keymap.set("n", "<leader>v", ":ToggleTerm<CR>")
+            '';
+          }
         ];
       };
     };

@@ -6,5 +6,6 @@
     bun
     podman
     maven
+    go
   ];
 }
