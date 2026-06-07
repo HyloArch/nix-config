@@ -18,7 +18,7 @@
         PIDFile = "/var/run/wings/daemon.pid";
         ExecStart = "${pkgs.nur.repos.xddxdd.pterodactyl-wings}/bin/wings";
         Restart = "on-failure";
-        StartLimitInterval = 180;
+        StartLimitIntervalSec = 180;
         StartLimitBurst = 30;
         RestartSec = 5;
       };

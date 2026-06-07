@@ -39,7 +39,7 @@
         plugins = with pkgs.vimPlugins; [
           {
             plugin = catppuccin-nvim;
-            type = "lua";
+            type = "viml";
             config = "colorscheme catppuccin";
           }
           {
@@ -80,7 +80,7 @@
             plugin = nvim-treesitter;
             type = "lua";
             config = ''
-              require("nvim-treesitter.configs").setup({
+              require("nvim-treesitter").setup({
                 highlight = { enable = true },
                 indent = { enable = true }
               })
