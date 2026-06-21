@@ -23,6 +23,7 @@ in
       palette = cfg.palette;
       palettes = {
         default = {
+          host-bg = "#3f4451";
           directory-fg = "#000000";
           directory-bg = "#758bd1";
           git-fg = "#000000";
@@ -35,6 +36,7 @@ in
           error = "red";
         };
         auburn = {
+          host-bg = "#3f4451";
           directory-fg = "#000000";
           directory-bg = "#82889C";
           git-fg = "#000000";
@@ -47,6 +49,7 @@ in
           error = "red";
         };
         ares = {
+          host-bg = "#3f4451";
           directory-fg = "#000000";
           directory-bg = "#f73636";
           git-fg = "#000000";
@@ -59,6 +62,7 @@ in
           error = "#ff0000";
         };
         tron = {
+          host-bg = "#3f4451";
           directory-fg = "#000000";
           directory-bg = "#4ab7ff";
           git-fg = "#000000";
@@ -72,27 +76,25 @@ in
         };
       };
       format = lib.concatStrings [
-        "$username"
-        "$hostname"
-        "[](fg:directory-bg)"
-        "$directory"
+        "[$username$hostname](bg:host-bg)"
+        "[$directory](fg:prev_bg bg:directory-bg)"
         "[($git_branch$git_status)](fg:prev_bg bg:git-bg)"
         "[($nix_shell)](fg:prev_bg bg:nix-shell-bg)"
         "[](fg:prev_bg)"
         "($bun$c$cpp$golang$gradle$java$lua$maven$nodejs$python$rust$zig )"
-        # "$fill"
-        # "([[](fg:time)$cmd_duration](fg:time-fg bg:time-bg))"
         "$line_break"
         "$character"
       ];
       right_format = "([[](fg:time-bg)$cmd_duration](fg:time-fg bg:time-bg))";
 
       username = {
-        format = " $user";
+        format = "[ $user]($style)";
+        style_user = "fg:host-fg bg:host-bg";
         show_always = true;
       };
       hostname = {
-        format = "@$hostname $ssh_symbol";
+        format = "[@$hostname $ssh_symbol]($style)";
+        style = "fg:host-fg bg:host-bg";
         ssh_only = false;
         ssh_symbol = "󰣀 ";
       };
@@ -143,10 +145,6 @@ in
         show_milliseconds = true;
         show_notifications = false;
         min_time_to_notify = 30000;
-      };
-      fill = {
-        symbol = " ";
-        style = "";
       };
     };
   };
