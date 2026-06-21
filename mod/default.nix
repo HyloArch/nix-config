@@ -28,15 +28,21 @@
       gc = {
         automatic = true;
         options = "--delete-older-than 30d";
-      } // (if pkgs.stdenv.hostPlatform.isDarwin then {
-        interval = {
-          Hour = 4;
-          Minute = 0;
-          Day = 1;
-        };
-      } else {
-        dates = "monthly";
-      });
+      }
+      // (
+        if pkgs.stdenv.hostPlatform.isDarwin then
+          {
+            interval = {
+              Hour = 4;
+              Minute = 0;
+              Day = 1;
+            };
+          }
+        else
+          {
+            dates = "monthly";
+          }
+      );
     };
   };
 }
