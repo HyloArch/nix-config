@@ -92,9 +92,9 @@ in
         show_always = true;
       };
       hostname = {
-        format = "@$hostname ($ssh_symbol )";
+        format = "@$hostname $ssh_symbol";
         ssh_only = false;
-        ssh_symbol = "󰣀";
+        ssh_symbol = "󰣀 ";
       };
       directory = {
         format = "[ $path ]($style)";
